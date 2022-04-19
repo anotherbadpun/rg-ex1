@@ -20,15 +20,32 @@ class flattenArray {
         this.initArray = initArray
     }
 
+    /**
+     * Flatten the array
+     * @return {[]} The final array
+     */
     flatten() {
         this.initArray.map((elm => {
-            this.outArray.push(this.flattenElement(elm))
+            this.flattenElement(elm)
         }))
         return this.outArray
     }
 
+    /**
+     * Determine how to handle an array element
+     * @param elm
+     * @return {*}
+     */
     flattenElement(elm) {
-        return elm
+        const self = this
+
+        if (Array.isArray(elm)) {
+            setTimeout(function() {
+                self.outArray.push(self.flattenElement(elm))
+            })
+        } else {
+            self.outArray.push(elm)
+        }
     }
 }
 
