@@ -2,7 +2,7 @@
 
 class flattenArray {
     initArray = null
-    outArray = []
+    outArray = null
 
     /**
      * Instance entry point
@@ -25,27 +25,13 @@ class flattenArray {
      * @return {[]} The final array
      */
     flatten() {
-        this.initArray.map((elm => {
-            this.flattenElement(elm)
-        }))
-        return this.outArray
-    }
-
-    /**
-     * Determine how to handle an array element
-     * @param elm
-     * @return {*}
-     */
-    flattenElement(elm) {
-        const self = this
-
-        if (Array.isArray(elm)) {
-            setTimeout(function() {
-                self.outArray.push(self.flattenElement(elm))
-            })
-        } else {
-            self.outArray.push(elm)
+        function* flatten(arr) {
+            if (!Array.isArray(arr)) yield arr;
+            else for (let el of arr) yield* flatten(el);
         }
+        
+        this.outArray = [...flatten(this.initArray)]
+        return this.outArray
     }
 }
 
