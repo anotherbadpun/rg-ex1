@@ -2,6 +2,7 @@
 
 class flattenArray {
     initArray = null
+    outArray = []
 
     /**
      * Instance entry point
@@ -17,7 +18,17 @@ class flattenArray {
      */
     init(initArray) {
         this.initArray = initArray
-        console.log(this.initArray)
+    }
+
+    flatten() {
+        this.initArray.map((elm => {
+            this.outArray.push(this.flattenElement(elm))
+        }))
+        return this.outArray
+    }
+
+    flattenElement(elm) {
+        return elm
     }
 }
 
